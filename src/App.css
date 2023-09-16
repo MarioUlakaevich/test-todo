@@ -1,38 +1,54 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Стили для основного контейнера */
+.main {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px 20px 0 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
 }
 
-.App-link {
-  color: #61dafb;
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
+  width: 100%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.counter {
+  font-size: 12px;
+}
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+  width: 190px;
+}
+
+/* Стили для заголовка */
+.name {
+  font-size: 5em;
+  margin-bottom: 20px;
+  font-weight: 100;
+  color: #d3a69b;
+}
+
+/* Общие стили для кнопок */
+button {
+  padding: 1px 2px;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  background-color: #f9f9f9;
+  font-size: 12px;
+}
+
+/* Стили для кнопок фильтрации */
+button.active-filter {
+  border: #646464 solid 1px;
+  border-radius: 5px;
 }

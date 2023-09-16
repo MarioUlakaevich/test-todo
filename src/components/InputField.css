@@ -1,0 +1,26 @@
+  .input-field-container {
+    display: flex;
+    width: 100%;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-style: italic;
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-radius: 0;
+  }
+  
+  .add-button {
+    width: 0;
+    visibility: hidden;
+  }
+
+  ::placeholder {
+    color: #d0d0d0;
+  }

@@ -1,26 +1,71 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import TodoList from './components/TodoList';
+import InputField from './components/InputField';
+import { Todo, FilterType } from './types';
+import './App.css'
 
-function App() {
+const App: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [filter, setFilter] = useState<FilterType>(FilterType.All);
+  const [activeTodosCount, setActiveTodosCount] = useState<number>(0);
+
+  useEffect(() => {
+    const count = todos.filter((todo) => !todo.completed).length;
+    setActiveTodosCount(count);
+  }, [todos]);
+
+  const addTodo = (text: string) => {
+    const newTodo: Todo = {
+      id: Date.now(),
+      text,
+      completed: false,
+    };
+    setTodos([...todos, newTodo]);
+  };
+
+  const toggleTodo = (id: number) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
+  const clearCompleted = () => {
+    setTodos(todos.filter((todo) => !todo.completed));
+  };
+
+  const getFilteredTodos = () => {
+    switch (filter) {
+      case FilterType.Active:
+        return todos.filter((todo) => !todo.completed);
+      case FilterType.Completed:
+        return todos.filter((todo) => todo.completed);
+      case FilterType.All:
+      default:
+        return todos;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='main'>
+      <div className='name'>todos</div>
+      <InputField addTodo={addTodo} />
+      <TodoList todos={getFilteredTodos()} toggleTodo={toggleTodo} />
+      <div className='footer'>
+        <p className='counter'>{`${activeTodosCount} items left`}</p>
+        <div className='filter'>
+          <button className={filter === FilterType.All ? 'all active-filter' : 'all'}
+          onClick={() => setFilter(FilterType.All)}>All</button>
+          <button className={filter === FilterType.Active ? 'active active-filter' : 'active'} 
+          onClick={() => setFilter(FilterType.Active)}>Active</button>
+          <button className={filter === FilterType.Completed ? 'completed active-filter' : 'completed'}
+          onClick={() => setFilter(FilterType.Completed)}>Completed</button>
+        </div>
+        <button className='clear' onClick={clearCompleted}>Clear Completed</button>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
