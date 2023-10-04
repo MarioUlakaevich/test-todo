@@ -5,9 +5,13 @@ import { Todo, FilterType } from './types';
 import './App.css'
 
 const App: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>(JSON.parse(sessionStorage.getItem('todos') || ""));
   const [filter, setFilter] = useState<FilterType>(FilterType.All);
   const [activeTodosCount, setActiveTodosCount] = useState<number>(0);
+
+  useEffect(() => {
+    sessionStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   useEffect(() => {
     const count = todos.filter((todo) => !todo.completed).length;
